@@ -1,1 +1,6 @@
+<<<<<<< HEAD
 tiedosto4 muutin
+=======
+tiedosto4
+uusi rivi
+>>>>>>> 14fd456c911b3b9eabcf7a0bb0c85f5aae5ab0da
