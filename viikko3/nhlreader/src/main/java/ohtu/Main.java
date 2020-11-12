@@ -3,6 +3,7 @@ package ohtu;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import org.apache.http.client.fluent.Request;
 
@@ -14,6 +15,7 @@ public class Main {
 
         Gson mapper = new Gson();
         Player[] players = mapper.fromJson(bodyText, Player[].class);
+        Arrays.sort(players);
 
         System.out.print("Players from FIN ");
         System.out.println(new SimpleDateFormat("E MMM d HH:mm:ss z y").format(new Date()));
@@ -21,7 +23,8 @@ public class Main {
 
         for (Player player : players) {
             if (player.getNationality().equals("FIN")) {
-                System.out.println(player);
+                int points = player.getGoals()+player.getAssists();
+                System.out.printf("%-20s %-3s   %2s + %-2s = %2s \n", player.getName(), player.getTeam(), player.getGoals(), player.getAssists(), points);
             }
         }   
     }
