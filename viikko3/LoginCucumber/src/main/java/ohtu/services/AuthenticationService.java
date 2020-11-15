@@ -40,7 +40,27 @@ public class AuthenticationService {
 
     private boolean invalid(String username, String password) {
         // validity check of username and password
-
+        if (username.length()<3) {
+            return true;
+        }
+        String allowedLetters = "abcdefghijklmnopqrstuvwxyz";
+        for (char c : username.toCharArray()) {
+            if (!allowedLetters.contains(String.valueOf(c))) {
+                return true;
+            }
+        }
+        if (password.length()<8) {
+            return true;
+        }
+        boolean containsOnlyLetters = true;        
+        for (char c : password.toCharArray()) {   
+            if (!Character.isLetter(c)) {
+                containsOnlyLetters = false;
+            }
+        }
+        if (containsOnlyLetters) {
+            return true;
+        }
         return false;
     }
 }
