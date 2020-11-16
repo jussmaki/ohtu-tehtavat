@@ -34,11 +34,45 @@ public class AuthenticationService {
             status.addError("username should have at least 3 characters");
         }
 
+        if (!containsOnlyLettersFromAToZ(username)) {
+            status.addError("username should contain only letters a-z");
+        }
+        
+        if (password.length()<8) {
+            status.addError("password should have at least 8 characters");
+        }
+        
+        if (containsOnlyLetters(password)) {
+            status.addError("password should contain at least one other character than letters in it");
+        }
+        
+        if (!password.equals(passwordConfirmation)) {
+            status.addError("password and password confirmation do not match");
+        }
+        
         if (status.isOk()) {
             userDao.add(new User(username, password));
         }
         
         return status;
+    }
+    
+    private boolean containsOnlyLetters(String str) {
+        for (char c : str.toCharArray()) {   
+            if (!Character.isLetter(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    private boolean containsOnlyLettersFromAToZ(String str) {
+        String lettersFromAToZ = "abcdefghijklmnopqrstuvwxyz";
+        for (char c : str.toCharArray()) {
+            if (!lettersFromAToZ.contains(String.valueOf(c))) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
