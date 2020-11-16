@@ -88,6 +88,51 @@ public class Stepdefs {
         pageHasContent(error);
     }
     
+    @Given("user with username {string} with password {string} is successfully created")
+    public void userWithUsernameWithPassWordIsSuccessfullyCreated(String username, String password) {
+        driver.get(baseUrl);
+        WebElement element = driver.findElement(By.linkText("register new user"));
+        element.click();        
+        assertTrue(driver.getPageSource().contains("Create username and give password"));
+        element = driver.findElement(By.name("username"));
+        element.sendKeys(username);
+        element = driver.findElement(By.name("password"));
+        element.sendKeys(password);
+        element = driver.findElement(By.name("passwordConfirmation"));
+        element.sendKeys(password);
+        element = driver.findElement(By.name("signup"));
+        element.submit();    
+        pageHasContent("Welcome to Ohtu Application!");
+    }
+    
+    @Given("user with username {string} and password {string} is tried to be created")
+    public void userWithUsernameAndPasswordIsTriedToBeCreated(String username, String password) {
+        driver.get(baseUrl);
+        WebElement element = driver.findElement(By.linkText("register new user"));
+        element.click();        
+        assertTrue(driver.getPageSource().contains("Create username and give password"));
+        element = driver.findElement(By.name("username"));
+        element.sendKeys(username);
+        element = driver.findElement(By.name("password"));
+        element.sendKeys(password);
+        element = driver.findElement(By.name("passwordConfirmation"));
+        element.sendKeys(password);
+        element = driver.findElement(By.name("signup"));
+        element.submit();    
+        pageHasContent("Create username and give password");
+    }
+    
+    @When("a username {string} and password {string} and matching password confirmation are entered")
+    public void aUsernameAndPasswordAndMatchingPasswordConfirmationAreEntered(String username, String password) {
+        logInWith(username, password);
+    }
+    
+    @Then("user is not logged in and error {string} is reported")
+    public void userIsNotLoggedInAndErrorIsReported(String error) {
+        pageHasContent("Give your credentials to login");
+        pageHasContent(error);
+    }    
+    
     @After
     public void tearDown(){
         driver.quit();
