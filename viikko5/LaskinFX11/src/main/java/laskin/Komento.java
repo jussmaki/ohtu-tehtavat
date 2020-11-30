@@ -17,5 +17,10 @@ public abstract class Komento {
         this.sovellus = sovellus;
     }
     public abstract void suorita();
-    public abstract void peru();
+    
+    public void peru() {
+        tuloskentta.setText(String.valueOf(sovellus.vanhaTulos()));
+        syotekentta.setText(""+0);
+        undo.disableProperty().set(true);
+    }
 }
